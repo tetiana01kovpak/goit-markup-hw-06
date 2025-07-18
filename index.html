@@ -849,50 +849,36 @@
     </div>
     <script>
       (() => {
-        const menuRefs = {
-          openMenuBtn: document.querySelector("[data-modal-open]"),
-          closeMenuBtn: document.querySelector("[data-modal-close]"),
-          menu: document.querySelector("[data-modal]"),
-        };
+        const menuBtn = document.querySelector("[data-modal-open]");
+        const closeMenuBtn = document.querySelector("[data-modal-close]");
+        const menu = document.querySelector("[data-modal]");
 
-        if (menuRefs.openMenuBtn && menuRefs.closeMenuBtn && menuRefs.menu) {
-          menuRefs.openMenuBtn.addEventListener("click", toggleMenu);
-          menuRefs.closeMenuBtn.addEventListener("click", toggleMenu);
-
-          function toggleMenu() {
-            menuRefs.menu.classList.toggle("is-open");
-          }
+        if (menuBtn && closeMenuBtn && menu) {
+          const toggleMenu = () => menu.classList.toggle("is-open");
+          menuBtn.addEventListener("click", toggleMenu);
+          closeMenuBtn.addEventListener("click", toggleMenu);
         }
 
-        const modalRefs = {
-          openModalBtn: document.querySelector("[data-modal-open-form]"),
-          closeModalBtn: document.querySelector("[data-modal-close-form]"),
-          modal: document.querySelector("[data-modal-form]"),
-        };
+        const modalBtn = document.querySelector("[data-modal-open-form]");
+        const closeModalBtn = document.querySelector("[data-modal-close-form]");
+        const modal = document.querySelector("[data-modal-form]");
 
-        if (
-          modalRefs.openModalBtn &&
-          modalRefs.closeModalBtn &&
-          modalRefs.modal
-        ) {
-          modalRefs.openModalBtn.addEventListener("click", openModal);
-          modalRefs.closeModalBtn.addEventListener("click", closeModal);
-
-          modalRefs.modal.addEventListener("click", (e) => {
-            if (e.target === modalRefs.modal) {
-              closeModal();
-            }
-          });
-
-          function openModal() {
-            modalRefs.modal.style.display = "block";
+        if (modalBtn && closeModalBtn && modal) {
+          const openModal = () => {
+            modal.style.display = "block";
             document.body.style.overflow = "hidden";
-          }
-
-          function closeModal() {
-            modalRefs.modal.style.display = "none";
+          };
+          const closeModal = () => {
+            modal.style.display = "none";
             document.body.style.overflow = "auto";
-          }
+          };
+
+          modalBtn.addEventListener("click", openModal);
+          closeModalBtn.addEventListener("click", closeModal);
+          modal.addEventListener(
+            "click",
+            (e) => e.target === modal && closeModal()
+          );
         }
       })();
     </script>
